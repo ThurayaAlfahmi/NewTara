@@ -79,11 +79,7 @@
     <div class="form-floating mb-1 float-end text-end">
         <select class="form-control pull-right float-end text-end" name="car_type" id="car_type">
             <option value="" selected>اختر نوع السيارة</option>
-            <option value="Family Small">عائلية صغيرة</option>
-            <option value="Family Large">عائلية كبيرة</option>
-            <option value="Sports">رياضية</option>
-            <option value="Luxury">فاخرة</option>
-            <option value="Economy">اقتصادية</option>
+            @php list_car_type(""); @endphp
         </select>
         <label class="msg-right" for="car_type">نوع السيارة</label>
     </div>

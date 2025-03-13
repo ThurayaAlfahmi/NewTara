@@ -6,6 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
 {
+
+    protected $fillable = [
+        'user_id', // Add this line
+        'car_id',
+        'pickup_location_id',
+        'dropoff_location_id',
+        'start_date',
+        'end_date',
+        'total_days',
+        'total_price',
+        'status',
+    ];
     public function car()
     {
         return $this->belongsTo(Car::class);

@@ -62,16 +62,9 @@
                                         <td>{{ $car->availability ? 'متاح' : 'غير متاح' }}</td>
                                         <td>{{ $car->location->city }} - {{ $car->location->branch_name }}</td>
                                         <td>
-                                            @php
-                                                $carTypeMapping = [
-                                                    'Family Small' => 'عائلية صغيرة',
-                                                    'Family Large' => 'عائلية كبيرة',
-                                                    'Sports' => 'رياضية',
-                                                    'Luxury' => 'فاخرة',
-                                                    'Economy' => 'اقتصادية',
-                                                ];
-                                                echo $carTypeMapping[$car->car_type] ?? $car->car_type;
-                                            @endphp
+                                        
+                                                <?php echo get_carType($car->car_type); ?>
+                                             
                                         </td>
                                     </tr>
                                 @endforeach

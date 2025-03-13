@@ -95,11 +95,7 @@
     <div class="form-floating mb-1 float-end text-end">
         <select class="form-control pull-right float-end text-end" name="car_type" id="car_type_edit" tabindex="9">
             <option value="" disabled>اختر نوع السيارة</option>
-            <option value="Family Small" {{ $car->car_type == 'Family Small' ? 'selected' : '' }}>عائلية صغيرة</option>
-            <option value="Family Large" {{ $car->car_type == 'Family Large' ? 'selected' : '' }}>عائلية كبيرة</option>
-            <option value="Sports" {{ $car->car_type == 'Sports' ? 'selected' : '' }}>رياضية</option>
-            <option value="Luxury" {{ $car->car_type == 'Luxury' ? 'selected' : '' }}>فاخرة</option>
-            <option value="Economy" {{ $car->car_type == 'Economy' ? 'selected' : '' }}>اقتصادية</option>
+            <?php echo list_car_type($car ->car_type ) ?>
         </select>
         <label class="msg-right required" for="car_type">نوع السيارة</label>
         <div class="invalid-feedback" id="car_type_error"></div>        

@@ -72,7 +72,7 @@ $carTypeMapping = [
 
                     <tr>
                         <td class="text-center bg-infox" style="width: 35%;"><b>نوع السيارة</b></td>
-                        <td><b>{{$carTypeMapping[$car->car_type] ?? $car->car_type }}</b></td>
+                        <td><b> <?php echo get_carType($car->car_type); ?></b></td>
                     </tr>
                 </tbody>
             </table>

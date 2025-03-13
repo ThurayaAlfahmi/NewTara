@@ -43,6 +43,7 @@
   </nav>
   
    @yield('login')
+   @yield('register')
   
      <script>
      function xinput(){

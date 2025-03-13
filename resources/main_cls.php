@@ -359,3 +359,35 @@ function get_my_f_social($val){
 	if($val=="divorced"){return "مطلق";}
 }
 
+function   list_car_type($val){
+				
+$options = [
+
+["value" => "Family Small", "text" => "عائلية صغيرة"],
+
+["value" => "Family Large", "text" => "عائلية كبيرة"],
+
+["value" => "Sports", "text" => "رياضية"],
+
+["value" => "Luxury", "text" => "فاخرة"],
+
+["value" => "Economy", "text" => "اقتصادية"],
+
+];
+foreach ($options as $option) {
+	$selected = $val == $option["value"] ? "selected" : "";
+	echo "<option $selected value=\"$option[value]\">$option[text]</option>";
+}
+ 
+}
+
+function get_carType($val){
+	if($val=="Family Small"){return "عائلية صغيرة";}
+	if($val=="Family Large"){return "عائلية كبيرة";}
+	if($val=="Sports"){return "رياضية";}
+	if($val=="Luxury"){return "فاخرة";}
+	if($val=="Economy"){return "اقتصادية";}
+
+}
+
+		

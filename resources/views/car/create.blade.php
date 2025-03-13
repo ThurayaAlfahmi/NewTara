@@ -84,21 +84,18 @@
         <div class="invalid-feedback" id="location_id_error"></div>
     </div>
 
-    <!-- Car Type Field -->
+   
     <div class="form-floating mb-1 float-end text-end">
         <select class="form-control pull-right float-end text-end" name="car_type" id="car_type" tabindex="9">
-            <option value="" disabled selected>اختر نوع السيارة</option>
-            <option value="Family Small">عائلية صغيرة</option>
-            <option value="Family Large">عائلية كبيرة</option>
-            <option value="Sports">رياضية</option>
-            <option value="Luxury">فاخرة</option>
-            <option value="Economy">اقتصادية</option>
+            <option value="" >اختر نوع السيارة</option>
+            @php
+            list_car_type(old('car_type'));
+            @endphp
         </select>
         <label class="msg-right" for="car_type">نوع السيارة</label>
         <div class="invalid-feedback" id="car_type_error"></div>
     </div>
 
-    <!-- Submit Button -->
     <div class="d-grid gap-2 col-6 mx-auto">
         <button class="btn btn-primary btn-block" type="submit">إضافة المعلومات</button>
     </div>

@@ -84,7 +84,7 @@
                                             <th class="text-center" data-visible="true"><b>الرقم</b></th>
                                         </tr>
                                     </thead>
-                                    @php
+                                    {{-- @php
                                     $carTypeMapping = [
                                         'Family Small' => 'عائلية صغيرة',
                                         'Family Large' => 'عائلية كبيرة',
@@ -92,7 +92,7 @@
                                         'Luxury' => 'فاخرة',
                                         'Economy' => 'اقتصادية',
                                     ];
-                                @endphp
+                                @endphp --}}
                                     <tbody>
                                         @unless ($listings->isEmpty())
                                             @foreach ($listings as $car)
@@ -109,11 +109,14 @@
                                                     <td class="cell">{{ $car->daily_rate }}</td>
                                                     <td class="cell">{{ $car->availability ? 'متاح' : 'غير متاح' }}</td>
                                                     <td class="cell">
-                                                      <img src="{{ asset('storage/' . $car->image_url) }}" alt="صورة السيارة" width="100">
+                                                        <img src="{{ asset('storage/' . $car->image_url) }}" alt="صورة السيارة" width="100">
 
                                                     </td>
                                                     <td class="cell">{{ $car->location->city }} - {{ $car->location->branch_name }}</td>
-                                                    <td class="cell">{{ $carTypeMapping[$car->car_type] ?? $car->car_type }}</td>
+                                                    <td class="cell">
+                                                        <?php echo get_carType($car->car_type); ?>
+                                                     </td>
+                                                    {{-- <td class="cell">{{ $carTypeMapping[$car->car_type] ?? $car->car_type }}</td> --}}
                                                     <td class="cell">{{ $car->id }}</td>
                                                 </tr>
                                             @endforeach

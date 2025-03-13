@@ -6,21 +6,28 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Users_info\Users_info_cnt;
 use App\Http\Controllers\PDFController;
 //---> any new below
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\BookingController;
 
 use App\Http\Controllers\myfrind\Myfrind_cnt;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\LocationController;
 
 
 
-
 Route::get("/", function () {
-    if (Auth::check()) {
-        return view("dashboard");
+    if (Auth::check()) { // Check if the user is logged in
+        if (Auth::user()->id == 1) {
+            return redirect()->intended(route('dashboard')); // Admin's dashboard
+        } else {
+            return redirect()->intended(route('home')); // Non-admin users
+        }
     } else {
-        return redirect()->route("login");
+        return redirect()->route('login'); // Redirect to login if not authenticated
     }
-  });
+});
+
 Route::middleware("auth")->group(function () {
 
     Route::get("/dashboard",function(){return view("dashboard");})->name("dashboard");
@@ -65,7 +72,63 @@ Route::middleware("auth")->group(function () {
     Route::post('car.store', [CarController::class, 'store']);
     Route::post('/car.update', [CarController::class, 'update']);
     Route::resource('car', CarController::class);
+
+    
+ // Bookings
+
+
+    Route::get('bookings/list', [BookingController::class, 'list'])->name('bookings.list');
+    Route::get('bookings/{booking}/show', [BookingController::class, 'show'])->name('bookings.show');
+    Route::get('bookings/rep', [BookingController::class, 'rep'])->name('bookings.rep');
+    Route::post('bookings/rep_excel', [BookingController::class, 'rep_excel'])->name('bookings.rep_excel');
+    Route::post('bookings/rep_pdf', [BookingController::class, 'rep_pdf'])->name('bookings.rep_pdf');
+    
+    // Resource route for the BookingController (for actions like create, store, edit, update, destroy)
+    Route::resource('bookings', BookingController::class);  // Use except if you only want to allow show and index
+    
+ 
+ //
+  
+ //payments
+ Route::get('payments/list', [PaymentController::class, 'list'])->name('payment.list');
+ Route::get('payments/{payment}/show', [PaymentController::class, 'show'])->name('payments.show');
+ Route::patch('payments/{payment}/update', [PaymentController::class, 'updatePaymentStatus'])->name('payments.update');
+
+//  Route::patch('admin/payments/{paymentId}', [PaymentController::class, 'updatePaymentStatus'])->name('admin.update.payment');
+ 
     
 });
+
+
+
+
+//user
+
+// Route::get('/', [DashboardController::class, 'index'])->name('welcome');
+
+
+
+// Home route for regular users
+Route::get('/home', [DashboardController::class, 'index'])->name('home');
+
+    // Route::get('/profile', [UserController::class, 'edit'])->name('profile.edit');
+    // Route::put('/profile/{id}', [UserController::class, 'update'])->name('profile.update');  
+    Route::get('/search-cars', [DashboardController::class, 'searchCars'])->name('search.cars');
+    Route::get('/book-car/{car}', [BookingController::class, 'showBookingForm'])->name('book.car')->middleware('auth');
+    Route::post('/confirm-booking/{car}', [BookingController::class, 'confirmBooking'])->name('confirm.booking')->middleware('auth');
+    Route::post('/payment/{booking}', [PaymentController::class, 'showPaymentForm'])->name('payment.form')->middleware('auth');
+    Route::get('/booking-summary/{booking}', [BookingController::class, 'showBookingSummary'])->name('booking.summary');
+    Route::get('/payment/{booking}', [PaymentController::class, 'showPaymentForm'])->name('payment.form');
+    Route::post('/process-payment/{booking}', [PaymentController::class, 'processPayment'])->name('process.payment');
+    Route::get('/payment-success', function () {
+        return view('payment-success');
+    })->name('payment.success');
+    Route::get('/payment-pending', function () {
+        return view('payment-pending');
+    })->name('payment.pending');
+    
+    //  Route::get('/dashboard', [UserController::class, 'profile'])->middleware('auth')->name('profile');
+     Route::get('/user/cars', [CarController::class, 'showCars'])->name('user.cars');
+    
 
 require __DIR__."/auth.php";

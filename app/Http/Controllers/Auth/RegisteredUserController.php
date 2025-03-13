@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use App\Models\Users_info;
+
 
 class RegisteredUserController extends Controller
 {
@@ -41,10 +43,21 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+         Users_info::create([
+            'ui_id' => $user->id,
+            'ui_name' => $user->name,
+            'ui_user' => $user->email,
+            'ui_mobile' => '',
+            'ui_type' => '2',
+            'ui_para' => '',
+            'ui_log' => 'Created',    
+        ]);    
+        
+
         event(new Registered($user));
 
-        Auth::login($user);
-
-        return redirect(route('dashboard', absolute: false));
+        // Auth::login($user);
+     
+        return redirect()->route('login')->with('status', 'Registration successful. Please log in.');
     }
 }

@@ -238,9 +238,9 @@
                     {{ $user->name }}
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
-                    <li><a class="dropdown-item" href="#">اليوم : <span class="text-info">
-                          <?php //echo $GLOBALS["dg"]->date("l d-m-Y");?>
-                        </span></a></li>
+                    {{-- <li><a class="dropdown-item" href="#">اليوم : <span class="text-info">
+                          <?php echo $GLOBALS["dg"]->date("l d-m-Y");?>
+                        </span></a></li> --}}
                     <li><a class="dropdown-item" data-bs-toggle="modal" data-remote="{{ route('users_info.pass') }}"
                         data-bs-target="#modal-pass">تغيير كلمة المرور</a></li>
                     <li>
